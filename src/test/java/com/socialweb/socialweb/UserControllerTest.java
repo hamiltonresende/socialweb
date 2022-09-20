@@ -1,5 +1,6 @@
 package com.socialweb.socialweb;
 
+import com.socialweb.socialweb.shared.GenericResponse;
 import com.socialweb.socialweb.user.User;
 import com.socialweb.socialweb.user.UserRepository;
 import org.junit.Before;
@@ -35,7 +36,6 @@ public class UserControllerTest {
     public void postUser_whenUserIsValid_receiveOk(){
         User user = createValidUser();
         ResponseEntity<Object> response = testRestTemplate.postForEntity(API_1_0_USERS, user, Object.class);
-
         assertEquals(response.getStatusCode(), HttpStatus.OK);
     }
 
@@ -51,8 +51,14 @@ public class UserControllerTest {
     public void postUser_whenUserIsValid_userSavedToDatabase(){
         User user = createValidUser();
         testRestTemplate.postForEntity(API_1_0_USERS, user, Object.class);
-
         assertEquals(userRepository.count(), 1);
+    }
+
+    @Test
+    public void postUser_whenUserIsValid_receiveSuccessMessage(){
+        User user = createValidUser();
+        ResponseEntity<GenericResponse> response = testRestTemplate.postForEntity(API_1_0_USERS, user, GenericResponse.class);
+        assertNotNull(response.getBody().getMessage());
     }
 
 }
