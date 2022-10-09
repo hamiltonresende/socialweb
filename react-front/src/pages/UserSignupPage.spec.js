@@ -4,6 +4,13 @@ import '@testing-library/jest-dom/extend-expect';
 import { UserSignupPage } from './UserSignupPage';
 
 describe('UserSignupPage', () => {
+    const changeEvent = (content) => {
+        return {
+            target: {
+                value: content
+            }
+        }
+    }
 
     describe('Layout', () => {
         it('has header of Sign Up', () => {
@@ -46,16 +53,31 @@ describe('UserSignupPage', () => {
             const button = container.querySelector('button');
             expect(button).toBeInTheDocument();
         });
+
+        it ('calls postSignup when the fields are valid and the actions are provided in props', () => {
+            const actions = {
+                postSignup: jest.fn().mockResolvedValueOnce({})
+            };
+            const { container, queryByPlaceholderText } = render(
+                <UserSignupPage actions={actions}/>
+            );
+
+            const displayNameInput = queryByPlaceholderText('Your display name');
+            const usernameInput = queryByPlaceholderText('Your username');
+            const passwordInput = queryByPlaceholderText('Your password');
+            const passwordRepeat = queryByPlaceholderText('Repeat your password');
+
+            fireEvent.change(displayNameInput, changeEvent('my-display-name'));
+            fireEvent.change(usernameInput, changeEvent('my-user-name'));
+            fireEvent.change(passwordInput, changeEvent('P4ssword'));
+            fireEvent.change(passwordRepeat, changeEvent('P4ssword'));
+
+            const button = container.querySelector('button');
+            fireEvent.click(button);
+            expect(actions.postSignup).toHaveBeenCalledTimes(1);
+        });
     });
     describe('Interactions', () => {
-        const changeEvent = (content) => {
-            return {
-                target: {
-                    value: content
-                }
-            }
-        }
-
         it('sets the displayName value into state', () => {
             const { queryByPlaceholderText } = render(<UserSignupPage />);
             const displayNameInput = queryByPlaceholderText('Your display name');

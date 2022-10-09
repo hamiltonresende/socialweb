@@ -12,23 +12,26 @@ export class UserSignupPage extends React.Component {
     onChangeDisplayName = (event) => {
         const value = event.target.value;
         this.setState({displayName: value});
-    }
+    };
 
     onChangeUsername = (event) => {
         const value = event.target.value;
         this.setState({username: value});
-    }
+    };
 
     onChangePassword = (event) => {
         const value = event.target.value;
         this.setState({password: value});
-    }
+    };
 
     onChangePasswordRepeat = (event) => {
         const value = event.target.value;
         this.setState({passwordRepeat: value});
-    }
+    };
 
+    onClickSignup = () => {
+        this.props.actions.postSignup();
+    };
 
     render() {
         return (
@@ -61,7 +64,7 @@ export class UserSignupPage extends React.Component {
                         onChange={this.onChangePasswordRepeat} />
                 </div>
                 <div>
-                    <button>Sign Up</button>
+                    <button onClick={this.onClickSignup}>Sign Up</button>
                 </div>
             </div>
         )
