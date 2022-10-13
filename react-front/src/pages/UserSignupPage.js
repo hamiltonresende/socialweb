@@ -71,4 +71,13 @@ export class UserSignupPage extends React.Component {
     }
 }
 
+UserSignupPage.defaultProps = {
+    actions: {
+        postSignup: () => 
+            new Promise((resolve, reject) => {
+                resolve({});
+            })
+    }
+};
+
 export default UserSignupPage;
