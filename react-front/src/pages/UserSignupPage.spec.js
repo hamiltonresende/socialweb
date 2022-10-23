@@ -124,6 +124,17 @@ describe('UserSignupPage', () => {
             fireEvent.click(button);
             expect(actions.postSignup).toHaveBeenCalledTimes(1);
         });
+
+        it ('displays spinner when there is an ongoing apil call', () => {
+            const actions = {
+                postSignup: mockAsyncDelayed()
+            };
+            const {queryByText} = setupForSubmit({ actions });
+            fireEvent.click(button);
+            
+            const spinner  = queryByText('Loading...');
+            expect(spinner).toBeInTheDocument();
+        });
     });
     describe('Interactions', () => {
         it('sets the displayName value into state', () => {
