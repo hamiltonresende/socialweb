@@ -37,7 +37,9 @@ export class UserSignupPage extends React.Component {
             password: this.state.password
         }
         this.setState({pendingApiCall: true});
-        this.props.actions.postSignup(user);
+        this.props.actions.postSignup(user).then(response => {
+            this.setState({ pendingApiCall: false });
+        });
     };
 
     render() {

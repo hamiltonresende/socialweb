@@ -1,5 +1,5 @@
 import React from "react";
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, waitFor } from "@testing-library/react";
 import '@testing-library/jest-dom/extend-expect';
 import { UserSignupPage } from './UserSignupPage';
 
@@ -134,6 +134,19 @@ describe('UserSignupPage', () => {
             
             const spinner  = queryByText('Loading...');
             expect(spinner).toBeInTheDocument();
+        });
+
+        it ('hides spinner after api call finishes successfully', async () => {
+            const actions = {
+                postSignup: mockAsyncDelayed()
+            };
+            const {queryByText} = setupForSubmit({ actions });
+            fireEvent.click(button);
+
+            await waitFor(() => {
+                const spinner  = queryByText('Loading...');
+                expect(spinner).not.toBeInTheDocument();
+            });
         });
     });
     describe('Interactions', () => {
