@@ -68,7 +68,7 @@ export class UserSignupPage extends React.Component {
                         onChange={this.onChangePassword} />
                 </div>
                 <div className="col-12 mb-3">
-                    <label>Repeat Password</label>
+                    <label>Password Repeat</label>
                     <input
                         className="form-control" 
                         placeholder="Repeat your password" 
