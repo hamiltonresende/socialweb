@@ -85,8 +85,8 @@ export class UserSignupPage extends React.Component {
                         disabled={this.state.pendingApiCall}
                     >
                         {this.state.pendingApiCall && (
-                            <div className="spinner-border text-light spinner-border-sm mr-1" >
-                                <span className="sr-only">Loading...</span>
+                            <div className="spinner-border text-light spinner-border-sm mr-1">
+                                <span className="visually-hidden">Loading...</span>
                             </div>
                         )}
                             Sign Up
