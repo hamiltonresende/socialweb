@@ -187,3 +187,5 @@ describe('UserSignupPage', () => {
         });
     })
 });
+
+console.error = () => {};
