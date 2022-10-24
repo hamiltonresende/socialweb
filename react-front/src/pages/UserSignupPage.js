@@ -39,6 +39,9 @@ export class UserSignupPage extends React.Component {
         this.setState({pendingApiCall: true});
         this.props.actions.postSignup(user).then(response => {
             this.setState({ pendingApiCall: false });
+        })
+        .catch((error) => {
+            this.setState({ pendingApiCall: false });
         });
     };
 

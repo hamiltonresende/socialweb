@@ -148,6 +148,27 @@ describe('UserSignupPage', () => {
                 expect(spinner).not.toBeInTheDocument();
             });
         });
+
+        it ('hides spinner after api call finishes with error', async () => {
+            const actions = {
+                postSignup: jest.fn().mockImplementation(() => {
+                    return new Promise((resolve, reject) => {
+                        setTimeout(() => {
+                            reject({
+                                response: {data: {}}
+                            });
+                        }, 300) 
+                    })
+                })
+            };
+            const {queryByText} = setupForSubmit({ actions });
+            fireEvent.click(button);
+
+            await waitFor(() => {
+                const spinner  = queryByText('Loading...');
+                expect(spinner).not.toBeInTheDocument();
+            });
+        });
     });
     describe('Interactions', () => {
         it('sets the displayName value into state', () => {
